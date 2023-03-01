@@ -1,5 +1,8 @@
 import re
 
+# This file will take in the URLs entered to check if they're a Spotify or YouTube link. If neither than the
+# program will just return 'No Link', doing nothing
+
 
 def check_link_type(link):
     # Regular expression pattern to match Spotify links
