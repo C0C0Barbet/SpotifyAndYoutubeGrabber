@@ -1,24 +1,18 @@
 import spotipy
-from googleapiclient.discovery import build
+import googleapiclient.discovery
 from spotipy.oauth2 import SpotifyClientCredentials
 
 # This file will receive the Spotify link, parse it, and return the first YouTube link it finds
 
 
-def get_spotify_info(link, client_id, client_secret, youtube_dev_key):
-    # Setup spotipy
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
-    spot = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-    # Get track info for passed Spotify url
-    track_info = spot.track(link)
+def get_spotify_info(track_info, youtube_dev_key):
 
     # Extract the track title and artist name from the API response
     track_title = track_info['name']
     artist_name = track_info['artists'][0]['name']
 
     # Setup YouTube Data API
-    youtube = build('youtube', 'v3', developerKey=youtube_dev_key)
+    youtube = googleapiclient.discovery.build('youtube', 'v3', developerKey=youtube_dev_key)
 
     # Define the search query and parameters
     query = track_title, ' by ', artist_name

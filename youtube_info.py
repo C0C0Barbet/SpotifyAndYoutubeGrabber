@@ -6,7 +6,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 
 def get_youtube_info(link, client_id, client_secret):
-    # Use this request to retreive json info about link
+    # Use this request to retrieve json info about link
     base_url = "https://noembed.com/embed?url="
     new_url = base_url + link
     response = requests.get(new_url)
