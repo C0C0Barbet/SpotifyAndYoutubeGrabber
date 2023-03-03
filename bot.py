@@ -30,29 +30,28 @@ def run_discord_bot():
     # When a message is sent, run the function
     @client.event
     async def on_message(message):
-        # Store channel name as we only care about the Odeon channel
+        # Store channel name to return message to
         channel = str(message.channel.name)
 
-        if channel == "odeon":
-            # Store user and message for now, maybe do something with it later on
-            username = str(message.author).split('#')[0]
-            user_message = str(message.content)
-            print(f'{username}: {user_message} ({channel})')
+        # Store user and message for now, maybe do something with it later on
+        username = str(message.author).split('#')[0]
+        user_message = str(message.content)
+        print(f'{username}: {user_message} ({channel})')
 
-            # This is apparently a check to prevent infinite loops
-            if message.author == client.user:
-                return
+        # This is apparently a check to prevent infinite loops
+        if message.author == client.user:
+            return
 
-            # This function will return 'Spotify', 'YouTube', or 'No Link' depending on what was sent
-            type_of_input = check_link_type(user_message)
-            if type_of_input == "Spotify":
-                search_string = get_spotify_info(user_message, client_id, client_secret, youtube_dev_key)
-                await message.channel.send(search_string)
-            elif type_of_input == "YouTube":
-                search_string = get_youtube_info(user_message, client_id, client_secret)
-                await message.channel.send(search_string)
-            else:
-                print("No URLs.")
+        # This function will return 'Spotify', 'YouTube', or 'No Link' depending on what was sent
+        type_of_input = check_link_type(user_message)
+        if type_of_input == "Spotify":
+            search_string = get_spotify_info(user_message, client_id, client_secret, youtube_dev_key)
+            await message.channel.send(search_string)
+        elif type_of_input == "YouTube":
+            search_string = get_youtube_info(user_message, client_id, client_secret)
+            await message.channel.send(search_string)
+        else:
+            print("No URLs.")
 
     # Lastly, run the bot
     client.run(bot_token)
